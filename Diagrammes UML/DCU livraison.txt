@@ -1,0 +1,35 @@
+@startuml
+
+title Livraison
+left to right direction
+
+:Livreur:
+:Géolocalisation: as Geo << Système >>
+:API Gestion stock: as Stock << Système >>
+:Client:
+
+rectangle Système {
+:Livreur: --> (S'identifier)
+(S'identifier) ..> (Géolocaliser):include
+(Géolocaliser) <--- Geo
+:Livreur:->(Renseigner stock)
+(Renseigner stock)...>(MAJ stock):include
+
+:Livreur: -> (Recevoir commande)
+(Recevoir commande) -> (Refuser)
+(Recevoir commande) --> (Accepter)
+(Accepter) ..> (MAJ Localisation) :include
+(MAJ Localisation) <--- Geo
+(MAJ Localisation) <.. (Verifier statut commande):include
+(Accepter) ..> (MAJ stock) :include
+(MAJ stock) <--- Stock
+(Accepter) ..> (MAJ statut) :include
+(MAJ statut) <.. (Verifier statut commande) :include
+:Client: -----> (Verifier statut commande)
+}
+
+
+
+
+
+@enduml

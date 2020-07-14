@@ -1,0 +1,23 @@
+@startuml
+
+title Création de commande
+left to right direction
+:Client: as Client
+Client <|- :Nouvel Utilisateur:
+
+rectangle Système {
+Client --> (Consulter Menu)
+(Consulter Menu) ..> (Composition d'un panier):include
+(Composition d'un panier)..>(S'authentifier):include
+(S'authentifier)<.(S'inscrire):extend
+(Composition d'un panier)..>(Vérification de l'adresse de livraison):include
+(Vérification de l'adresse de livraison)<.(Création d'une nouvelle adresse de livraison):extend
+(Vérification de l'adresse de livraison)..>(Validation du panier):include
+(Validation du panier).>(Choisir un mode de paiement):include
+(Choisir un mode de paiement).>(Payer):include
+
+
+}
+(Payer)<---:API paiement:
+
+@enduml

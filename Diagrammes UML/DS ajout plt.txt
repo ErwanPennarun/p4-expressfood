@@ -1,0 +1,27 @@
+@startuml
+
+title Ajout plat
+
+Chef -> Application:Accès administration
+Chef <-- Application:Demande d'authentification
+Chef -> Application:Connexion
+Application -> Application:Vérification identifiants
+Chef <-- Application:Affichage accueil 
+Chef -> Application:Demander "ajouter un menu:
+Chef <-- Application: Choisir la date
+Chef -> Application: Sélectionner la date
+Chef <-- Application: Plat ou déssert ?
+Chef -> Application: faire un choix
+Chef <-- Application:Lister les entrées
+
+alt Si entrée existante
+Chef->Application:Sélectionner dans la liste
+else Si nouvelle entrée
+Chef <-- Application:Demander les détails de l'entrée
+Chef -> Application:Saisir les détails et valider
+end
+Chef<--Application:Récapitulatif menu
+Chef->Application:Valider
+
+
+@enduml

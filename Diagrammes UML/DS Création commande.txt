@@ -1,0 +1,38 @@
+@startuml
+
+title Création de commande
+
+Client -> Système:Visiter site
+Client <-- Système:Afficher menu
+Client -> Système:Composer un panier
+
+
+alt Si utilisateur déjà inscrit
+Client <-- Système:Demande id et mdp
+Client -> Système:Se connecter
+Système -> Système:Vérification
+
+else Si nouvel utilisateur
+Client<--Système:Champ de coordonnées 
+Client->Système:S'inscrire
+end
+
+Client<--Système:Adresse de livraison ?
+alt Si adresse de livraison existante
+Client->Système:Choix adresse
+
+else Si nouvelle adresse de livraison
+Client->Système:Ajouter une nouvelle adresse
+end
+
+Client<--Système:Récapitulatif du panier
+Client->Système:Validation du panier
+Client<--Système:Mode de paiement ?
+Client->Système:Choix paiement
+Système->"API Paiement":Vérification paiement
+Système<--"API Paiement":Validation du paiement
+Client<--Système:Récapitulatif commande
+Client->Système:Validation de la commande
+
+
+@enduml

@@ -1,0 +1,36 @@
+@startuml
+
+title Livraison 
+
+Livreur->Système:Accès compte
+Système-->Livreur:Demande ID
+Livreur->Système:Connexion
+Système->Système:Identification confirmée
+Système-->Géolocalisation:Demande d'emplacement
+Géolocalisation->Système:Géolocalisation
+Système-->Livreur:Demande stock
+Livreur->Système:Renseignement du nombre de plats
+
+alt Refuse livraison
+Livreur->Système:Refus de livraison
+Système-->Géolocalisation:Cherche d'autre livreur
+Livreur<--Système:Autre proposition
+
+else Accepte livraison
+Livreur->Système:Accepte commande
+Système-->Client:Notification de livraison
+end
+
+loop Jusqu'à livraison de la commande
+Système-->Géolocalisation:Demande de l'emplacement livreur
+Géolocalisation->Système:Géolocalisation
+Système-->Client:Mise à jour statut
+end
+
+Livreur->Système:Confirmation livraison commande
+Système-->Client:Commande livrée ?
+Client->Système:Validation
+
+
+
+@enduml
